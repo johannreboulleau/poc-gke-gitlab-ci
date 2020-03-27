@@ -1,5 +1,9 @@
 pg:
-  jdbc-url: jdbc:postgresql://localhost:5432/postgres
-  username: postgres
-  password:
-  instance-name: postgres
+  jdbc-url: jdbc:postgresql:///postgres
+  username: demo
+  password: demo
+  instance-name: solid-alignment-272000:europe-west1:demo-johann
+
+mail:
+  from: johann.reboulleau@gmail.com
+  personalFrom: Johann
