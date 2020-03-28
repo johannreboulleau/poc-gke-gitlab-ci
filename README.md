@@ -1,37 +1,45 @@
 # POC GCP : App Engine Flex
 
+Pré-requis :
 * Java 11
 * SDK GCLOUD
 
+# Features
+
 ## SDK GCLOUD
 
-permet de gérer tout : instances, App, BDD, Datastore, deploy, etc
+Le SDK permet de gérer tout en ligne de commande : instances, App, BDD, Datastore, deploy, etc
 
 ## Logging SLF4J
 
-cf : `LoggerRestController`
+1. dépendances maven
+2. configuration `logback.xml`
+3. Endpoint `LoggerRestController`
 
-On retrouve les logs dans les journaux
+On retrouve les logs dans les journaux dans l'UI de la console GCP.
 
-## Postgres
+## Postgres (JDBC)
 
-cf `PostgresSqlRestController` (JDBC)
+1. dépendances maven
+2. démarrer une instance PostgresSQL sous GCP
+3. configuration dans `application.yml` et `app.yaml
+4. Endpoint avec un CRUD `PostgresSqlRestController`
 
 Possibilité d'utiliser un ORM.
 
-## Datastore
+## Datastore (recommandé par GCP)
 
-Recommandé à PostgresSQL et MySQL
-
-cf `DatastoreRestController` 
+1. dépendances maven
+2. Endpoint `DatastoreRestController` 
  
-### Objectify
+## Objectify
 
-* dependances maven
-* filter Objectify
-* init du ObjectifyService + register des Entity
+ORM pour utiliser Datastore.
 
-cf `ObjectifyRestController` + `ObjectifyFilterServlet`
+1. dependances maven
+2. Configuration d'un filter Objectify `ObjectifyFilterServlet`
+3. Init du ObjectifyService + register des Entity : `ObjectifyRestController`
+4. Endpoint avec CRUD `ObjectifyRestController`
 
 En local : emulateur
 
@@ -44,7 +52,14 @@ Possibilité de mettre un émulateur en local, mais sinon par défaut se connect
 
 ## MemoryStore : MemCache / Redis
 
-2 solutions distinctes
+2 solutions distinctes : MemCache / Redis
+
+### Redis
+
+1. Démarrer et configurer une instance d'API Redis sous GCP.
+2. dépendance maven
+3. Configuration Listener `AppServletContextListener`
+4. Endpoint pour tester ``
 
 ## Mail
 
@@ -52,9 +67,8 @@ javax.mail compatible avec API de GCP uniquement pour Java 8
 
 Java 11 : SendGrid, Mailgun, or Mailjet. 
 
-ex : https://github.com/sendgrid/sendgrid-java
-
-cf `MailRestController`
+1. dependance maven
+2. Endpoint `MailRestController`
 
 ## Auth
 

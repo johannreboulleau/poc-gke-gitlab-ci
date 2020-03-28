@@ -7,3 +7,7 @@ pg:
 mail:
   from: johann.reboulleau@gmail.com
   personalFrom: Johann
+
+redis:
+  host: 10.208.249.83
+  port: 6379

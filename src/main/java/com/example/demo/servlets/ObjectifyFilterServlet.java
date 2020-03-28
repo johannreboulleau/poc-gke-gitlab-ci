@@ -1,4 +1,4 @@
-package com.example.demo.configuration;
+package com.example.demo.servlets;
 
 import com.googlecode.objectify.ObjectifyFilter;
 import org.springframework.core.annotation.Order;
