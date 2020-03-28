@@ -41,11 +41,11 @@ public class MailRestController {
             msg.setText("This is a test");
             Transport.send(msg);
         } catch (AddressException e) {
-            // ...
+            log.error("AddressException", e);
         } catch (MessagingException e) {
-            // ...
+            log.error("MessagingException", e);
         } catch (UnsupportedEncodingException e) {
-            // ...
+            log.error("UnsupportedEncodingException", e);
         }
     }
 }

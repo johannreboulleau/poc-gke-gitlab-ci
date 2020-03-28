@@ -9,13 +9,13 @@ permet de gérer tout : instances, App, BDD, Datastore, deploy, etc
 
 ## Logging SLF4J
 
-Slf4j : `LoggerRestController`
+cf : `LoggerRestController`
 
 On retrouve les logs dans les journaux
 
 ## Postgres
 
-`PostgresSqlRestController` (JDBC)
+cf `PostgresSqlRestController` (JDBC)
 
 Possibilité d'utiliser un ORM.
 
@@ -23,7 +23,7 @@ Possibilité d'utiliser un ORM.
 
 Recommandé à PostgresSQL et MySQL
 
-`DatastoreRestController` 
+cf `DatastoreRestController` 
  
 ### Objectify
 
@@ -31,11 +31,11 @@ Recommandé à PostgresSQL et MySQL
 * filter Objectify
 * init du ObjectifyService + register des Entity
 
-`ObjectifyRestController`
-
-`ObjectifyFilterServlet`
+cf `ObjectifyRestController` + `ObjectifyFilterServlet`
 
 En local : emulateur
+
+Possibilité de mettre un émulateur en local, mais sinon par défaut se connecte directement au remote.
 
 `gcloud components install cloud-datastore-emulator`
 
@@ -48,11 +48,16 @@ En local : emulateur
 
 ## Mail
 
-javax.mail compatible avec API de GCP
+javax.mail compatible avec API de GCP uniquement pour Java 8
 
-`MailRestController`
+Java 11 : SendGrid, Mailgun, or Mailjet. 
+
+ex : https://github.com/sendgrid/sendgrid-java
+
+cf `MailRestController`
 
 ## Auth
+
 
 
 # Local
