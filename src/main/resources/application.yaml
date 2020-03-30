@@ -1,13 +1,17 @@
 pg:
   jdbc-url: jdbc:postgresql:///postgres
-  username: demo
-  password: demo
-  instance-name: solid-alignment-272000:europe-west1:demo-johann
+  username: postgres
+  password: postgres
+  instance-name: poc-demo-johann-asia-south1:asia-south1:sql-pg-demo-johann
 
 mail:
   from: johann.reboulleau@gmail.com
   personalFrom: Johann
 
 redis:
-  host: 10.208.249.83
+  host: 10.55.85.179
   port: 6379
+spring:
+  redis:
+    host: 10.55.85.179
+    port: 6379

@@ -4,6 +4,12 @@ instance_class: F1
 # Explicitly set the memory limit and maximum heap size for the Spring Boot app
 env_variables:
   JAVA_TOOL_OPTIONS: "-XX:MaxRAM=256m -XX:ActiveProcessorCount=2 -Xmx32m"
+    # [START gae_java11_oauth2_yaml]
+  CLIENT_ID: "839041427568-cuhu302brt0nlb8kufke36oadj3q8hi7.apps.googleusercontent.com"
+  CLIENT_SECRET: "dO3EHa5qnkvQajTCLTXRnIrp"
 
 beta_settings:
-  cloud_sql_instances: solid-alignment-272000:europe-west1:demo-johann
+  cloud_sql_instances: poc-demo-johann-asia-south1:asia-south1:sql-pg-demo-johann
+
+vpc_access_connector:
+  name: "projects/poc-demo-johann-asia-south1/locations/asia-south1/connectors/connector-vpc-johann-demo"

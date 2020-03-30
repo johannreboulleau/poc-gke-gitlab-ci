@@ -29,13 +29,8 @@ public class RedisController {
             }
             Long visits;
 
-            log.info("jedisPool = {}", jedisPool);
-            log.info("jedisPool getResource = {}", jedisPool.getResource());
-
             try (Jedis jedis = jedisPool.getResource()) {
                 jedis.getClient().setTimeoutInfinite();
-                log.info("jedis = {}", jedis);
-                log.info("jedis clusterInfo = {}", jedis.clusterInfo());
                 visits = jedis.incr("visits");
             }
 

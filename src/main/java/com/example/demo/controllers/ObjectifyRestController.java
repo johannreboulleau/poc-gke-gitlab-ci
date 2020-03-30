@@ -1,8 +1,6 @@
 package com.example.demo.controllers;
 
 import com.example.demo.pojo.Comment;
-import com.google.cloud.datastore.DatastoreOptions;
-import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
