@@ -1,7 +1,9 @@
 package com.example.demo.controllers;
 
 import com.example.demo.servlets.RedisServletContextListener;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import redis.clients.jedis.Jedis;
@@ -12,12 +14,14 @@ import java.net.SocketException;
 
 @RestController
 @RequestMapping("redis")
+@Slf4j
 public class RedisController {
 
     @Autowired
     private RedisServletContextListener redisServletContextListener;
 
-    public String test() throws SocketException {
+    @GetMapping
+    public String getVisitCounter() throws SocketException {
             JedisPool jedisPool = this.redisServletContextListener.getJedisPool();
 
             if (jedisPool == null) {
@@ -25,7 +29,13 @@ public class RedisController {
             }
             Long visits;
 
+            log.info("jedisPool = {}", jedisPool);
+            log.info("jedisPool getResource = {}", jedisPool.getResource());
+
             try (Jedis jedis = jedisPool.getResource()) {
+                jedis.getClient().setTimeoutInfinite();
+                log.info("jedis = {}", jedis);
+                log.info("jedis clusterInfo = {}", jedis.clusterInfo());
                 visits = jedis.incr("visits");
             }
 

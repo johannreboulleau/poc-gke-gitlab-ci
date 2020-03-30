@@ -22,10 +22,22 @@ public class RedisServletContextListener implements ServletContextListener {
     private JedisPool jedisPool;
 
     private JedisPool createJedisPool() {
+        log.info("createJedisPool");
 
         JedisPoolConfig poolConfig = new JedisPoolConfig();
         // Default : 8, consider how many concurrent connections into Redis you will need under load
         poolConfig.setMaxTotal(128);
+        // Number of connections to Redis that just sit there and do nothing
+        poolConfig.setMaxIdle(16);
+        // Minimum number of idle connections to Redis - these can be seen as always open and ready to serve
+        poolConfig.setMinIdle(8);
+
+        // Tests whether connection is dead when returning a connection to the pool
+        poolConfig.setTestOnBorrow(true);
+        // Tests whether connection is dead when connection retrieval method is called
+        poolConfig.setTestOnReturn(true);
+        // Tests whether connections are dead during idle periods
+        poolConfig.setTestWhileIdle(true);
 
         return new JedisPool(poolConfig, redisProperties.getHost(), redisProperties.getPort());
     }
@@ -36,6 +48,7 @@ public class RedisServletContextListener implements ServletContextListener {
         if (jedisPool != null) {
             jedisPool.destroy();
             event.getServletContext().setAttribute("jedisPool", null);
+            log.info("contextDestroyed");
         }
     }
 
@@ -45,6 +58,7 @@ public class RedisServletContextListener implements ServletContextListener {
 
         if (this.jedisPool == null) {
             this.jedisPool = createJedisPool();
+            log.info("contextInitialized");
         }
     }
 
@@ -53,6 +67,8 @@ public class RedisServletContextListener implements ServletContextListener {
         if (this.jedisPool == null) {
             this.jedisPool = createJedisPool();
         }
+
+        log.info("getJedisPool = {}", this.jedisPool);
 
         return this.jedisPool;
     }
