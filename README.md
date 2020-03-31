@@ -102,10 +102,9 @@ Possibilité de mettre un émulateur en local, mais sinon par défaut se connect
 
 javax.mail compatible avec API de GCP uniquement pour Java 8
 
-Java 11 : SendGrid, Mailgun, or Mailjet. 
+Java 11 : Utilisation de API tierce comme SendGrid, Mailgun, or Mailjet. 
 
-1. Dépendance maven
-2. Endpoint `MailRestController`
+Pas réalisé cette partie.
 
 ## Auth
 
@@ -113,6 +112,8 @@ Java 11 : SendGrid, Mailgun, or Mailjet.
 * Firebase
 * Google Sign-In
 * OAuth 2.0 and OpenID Connect
+
+https://cloud.google.com/appengine/docs/standard/java11/authenticating-users
 
 ### Firebase 
 
