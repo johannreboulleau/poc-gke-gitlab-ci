@@ -117,8 +117,8 @@ https://cloud.google.com/appengine/docs/standard/java11/authenticating-users
 
 ### Firebase 
 
-Firebase propose plein d'outils pour des développements Web, dont plein de mode d'authentification. 
-Ici, on va tester l'authentification par email/password tout simplement côté navigateur. 
+Firebase propose plein d'outils pour des développements Web, dont plein de modes d'authentification. 
+Ici, on va tester l'authentification par email/password tout simplement côté navigateur (JS). 
 
 1. Créer un compte et un projet Firebase https://console.firebase.google.com
 1. Tout se passe en JS dans le fichier `oauth.html`
