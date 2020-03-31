@@ -132,3 +132,7 @@ Simple et rapide à mettre en place.
 ou
 
 `mvn appengine:devserver`
+
+## Postman
+
+Collection dans les sources du repo à la racine.

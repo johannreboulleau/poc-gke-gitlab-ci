@@ -1,0 +1,428 @@
+{
+	"info": {
+		"_postman_id": "3401cb11-9ab1-4635-8cd4-9367e561938d",
+		"name": "POC APP Engine Flex",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "sql",
+			"item": [
+				{
+					"name": "GET Comments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/sql/comments",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"sql",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Comments By id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/sql/comments/1",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"sql",
+								"comments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Comments",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"comment\": \"comment bidon\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostname}}/sql/comments",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"sql",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Comments",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 1,\n    \"comment\": \"comment jjj1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostname}}/sql/comments",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"sql",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Comment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/sql/comments/2",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"sql",
+								"comments",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "datastore",
+			"item": [
+				{
+					"name": "GET All Comments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/datastore/comments",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"datastore",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Comment by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/datastore/comments/5704134103662592",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"datastore",
+								"comments",
+								"5704134103662592"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Comment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"comment\": \"comment bidon datastore\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostname}}/datastore/comments",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"datastore",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Comment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 5704134103662592,\n    \"comment\": \"comment bidon datastore put\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostname}}/datastore/comments",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"datastore",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Comment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/datastore/comments/5704134103662592",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"datastore",
+								"comments",
+								"5704134103662592"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "objectify",
+			"item": [
+				{
+					"name": "GET All Comments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/objectify/comments",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"objectify",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Comment by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/objectify/comments/5637476211228672",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"objectify",
+								"comments",
+								"5637476211228672"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Comment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"comment\": \"comment bidon objectify\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostname}}/objectify/comments",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"objectify",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Comment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 5640825748848640,\n    \"comment\": \"comment bidon objectify put\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostname}}/objectify/comments",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"objectify",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Comment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/objectify/comments/5143677177430016",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"objectify",
+								"comments",
+								"5143677177430016"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Mail",
+			"item": [
+				{
+					"name": "Send email",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/mail/send",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"mail",
+								"send"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "redis",
+			"item": [
+				{
+					"name": "Get Visitors Sum",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/redis",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"redis"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Oauth",
+			"item": [
+				{
+					"name": "OAuth Page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/oauth",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"oauth"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
