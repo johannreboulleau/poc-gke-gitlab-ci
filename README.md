@@ -109,8 +109,20 @@ Java 11 : SendGrid, Mailgun, or Mailjet.
 
 ## Auth
 
-1. Permissions / activation dans la console GCP API et Services
-2. Configuration app.yaml
+3 possiblités :
+* Firebase
+* Google Sign-In
+* OAuth 2.0 and OpenID Connect
+
+### Firebase 
+
+Firebase propose plein d'outils pour des développements Web, dont plein de mode d'authentification. 
+Ici, on va tester l'authentification par email/password tout simplement côté navigateur. 
+
+1. Créer un compte et un projet Firebase https://console.firebase.google.com
+1. Tout se passe en JS dans le fichier `oauth.html`
+
+Simple et rapide à mettre en place. 
 
 # Local
 

@@ -30,7 +30,6 @@ public class RedisController {
             Long visits;
 
             try (Jedis jedis = jedisPool.getResource()) {
-                jedis.getClient().setTimeoutInfinite();
                 visits = jedis.incr("visits");
             }
 
