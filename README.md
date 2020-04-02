@@ -11,6 +11,7 @@ Doc principale :
 
 **Remarque** : des différences entre GAE Standard Java 8, GAE Standard Java 11 et GAE Flexible. 
 Attention de ne pas tout confondre.
+Voici une doc pour comparer https://cloud.google.com/appengine/docs/the-appengine-environments?hl=fr
 
 # Outils 
 
