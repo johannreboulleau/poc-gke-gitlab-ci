@@ -1,10 +1,4 @@
 <configuration>
-    <appender name="CLOUD" class="com.google.cloud.logging.logback.LoggingAppender">
-        <!-- Optional : filter logs at or above a level -->
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
-        </filter>
-    </appender>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <!-- encoders are assigned the type
@@ -15,7 +9,6 @@
     </appender>
 
     <root level="info">
-        <appender-ref ref="CLOUD" />
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>

@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>demo-johann</artifactId>
+	<artifactId>poc-gke-johann</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo-johann</name>
-	<description>POC with GCP App Engine Standard Java 11  and Spring Boot 2</description>
+	<name>poc-gke-johann</name>
+	<description>POC with GCP Kubernetes Engine, Java 11  and Spring Boot 2</description>
 
 	<properties>
 		<java.version>11</java.version>
@@ -91,18 +91,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.googlecode.objectify-appengine-spring</groupId>
-			<artifactId>objectify-appengine-spring</artifactId>
-			<version>1.1.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.googlecode.objectify</groupId>
-			<artifactId>objectify</artifactId>
-			<version>6.0.6</version>
-		</dependency>
-
-		<dependency>
 			<groupId>com.sun.mail</groupId>
 			<artifactId>javax.mail</artifactId>
 			<version>1.6.0</version>
@@ -127,15 +115,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>com.google.cloud.tools</groupId>
-				<artifactId>appengine-maven-plugin</artifactId>
-				<version>2.2.0</version>
-				<configuration>
-					<projectId>poc-demo-johann-asia-south1</projectId>
-					<version>GCLOUD_CONFIG</version>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

@@ -1,0 +1,25 @@
+# This file configures the hello-world app which serves public web traffic.
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: poc-gke-johann
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: poc-gke-johann
+  template:
+    metadata:
+      labels:
+        app: poc-gke-johann
+    spec:
+      containers:
+        - name: poc-gke-johann
+          # Replace $GCLOUD_PROJECT with your project ID
+          image: gcr.io/poc-demo-johann-asia-south1/springboot-poc-gke-docker-image:latest
+          # This app listens on port 8080 for web traffic by default.
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PORT
+              value: "8080"
