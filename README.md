@@ -1,139 +1,90 @@
-# POC GCP : App Engine Standard Java 11
+# POC Google Kubernetes Engine (GKE)
 
-Environnement :
-* Java 11
-* Spring-boot 2.2.11
-* SDK GCLOUD
-* Free Trial GCP with 300$ for 1 year
+Doc principale : https://cloud.google.com/kubernetes-engine/docs
 
-Doc principale :
-* https://cloud.google.com/appengine/docs/standard/java11/
+**Pré-requis**
 
-**Remarque** : des différences entre GAE Standard Java 8, GAE Standard Java 11 et GAE Flexible. 
-Attention de ne pas tout confondre.
-Voici une doc pour comparer https://cloud.google.com/appengine/docs/the-appengine-environments?hl=fr
+* SDK gcloud
+* kubectl
 
-# Outils 
+# Features de GKE
 
-## SDK GCLOUD
+## Création d un cluster
 
-Le SDK permet de gérer tout en ligne de commande : instances, App, BDD, Datastore, deploy, etc
+`gcloud container clusters create cluster-gke-poc-johann`
 
-# Features
+## Configuration de Kubectl
 
-## Créer un projet GCP
+`gcloud container clusters get-credentials cluster-gke-poc-johann`
 
-``gcloud projects create poc-demo-johann-asia-south1``
+## Création projet SpringBoot
 
-Configurer la facturation.
+## Création Image Docker
 
-## Créer une application Ap Engine Standard java 11
+1. Création du fichier `Dockerfile`
+4. Activer les API sous GCP https://console.cloud.google.com/flows/enableapi?apiid=cloudbuild.googleapis.com
 
-``gcloud app create --project=poc-demo-johann-asia-south1``
-
-Attention bien choisir la région. Toutes les fonctionnalités ne sont pas disponible sur tous les datacenters, dont les VPC Connector pour Redis.
-
-## Init du projet Java  avec SpringBoot
-
-1. Init d'un projet Spring Boot : https://start.spring.io/
-2. Suivre cette doc : https://cloud.google.com/appengine/docs/standard/java11/quickstart
-3. Deploy : ``mvn clean package appengine:deploy``
-
-## Logging SLF4J
-
-1. Dépendances maven
-2. Configuration `logback.xml`
-3. Endpoint `LoggerRestController`
-
-On retrouve les logs dans les journaux dans l'UI de la console GCP.
-
-## PostgresSQL (JDBC)
-
-1. Dépendances maven
-2. Créer une instance PostgresSQL sous GCP
-``gcloud sql instances create demo-johann --cpu=1 --memory=3840MiB --database-version=POSTGRES_9_6``
-3. Créer les bons rôles aux comptes de services (IAM)
-4. Configuration dans `application.yml` et `app.yaml`
-5. Endpoint avec un CRUD `PostgresSqlRestController`
-
-Possibilité d'utiliser un ORM.
-
-## Datastore (recommandé par GCP)
-
-Instance Datastore à disposition automatiquement.
-
-1. Dépendances maven
-2. Endpoint avec CRUD `DatastoreRestController` 
+## Push Image sur Registry Docker GCP
  
-## Objectify
+1. `sudo gcloud builds submit --tag gcr.io/poc-demo-johann-asia-south1/springboot-poc-gke-docker-image .`
+Equivalent à `docker build .` + `docker push`
 
-ORM pour utiliser Datastore.
+## Création Deployment
 
-1. Dépendances maven
-2. Configuration d'un filter Objectify `ObjectifyFilterServlet`
-3. Init du ObjectifyService + register des Entity : `ObjectifyRestController`
-4. Endpoint avec CRUD `ObjectifyRestController`
+1. Création du fichier de configuration d'un object Kubernetes de type Deployment `deployment.yaml`
+2. Application du déploiment dans GKE `kubectl apply -f deployment.yaml`
+3. Vérification `kubectl get deployments` , `kubectl get pods`
 
-En local : emulateur
+## Déployer un Service
 
-Possibilité de mettre un émulateur en local, mais sinon par défaut se connecte directement au remote.
+Les services fournissent un point d'accès unique à un ensemble de pods.
 
-`gcloud components install cloud-datastore-emulator`
+1. Création du fichier de configuration d'un object Kubernetes de type Service `service.yaml`
+2. Application du service `kubectl apply -f service.yaml`
+3. Vérification `kubectl get services`
+4. Accéder à l'application `curl http://34.93.58.136/` 
 
-`gcloud beta emulators datastore start [flags]
-`
+## Déployer une nouvelle version d'une image
 
-## MemoryStore : MemCache / Redis
+1. Builder et pusher la nouvelle image Docker
+2. Puis 
+2.1 Soit mettre à jour le fichier `deployment.yaml` avec la nouvelle version,
+2.2 soit si la version est latest et le replica = 1, supprimer le pod => un nouveau se créera avec la dernière version
+`kubectl get pods` ``
 
-2 solutions distinctes : MemCache / Redis (plus complet)
+## Volume
 
-### Redis
+1. La configuration se fait dans `deployment.yaml`
+2. Configuration `logback.xml` pour écrire dans un fichier de ce volume
+3. Vérifier le fichier de logs `kubectl exec -it poc-gke-johann-7c44cb66fc-gzl6l -- /bin/ash` puis `less /logs/poc-gke.log`
 
-1. Démarrer et configurer une instance d'API Redis sous GCP.
-`gcloud redis instances create redis-demo-johann --size=1 --region=asia-south1  --redis-version=redis_3_2`
-2. Créer un Connecteur VPC 
-``gcloud compute networks vpc-access connectors create connector-johann-demo --network default --region asia-south1 --range  10.8.0.0/28``
-**Attention** : le connector VPC n'est pas utile pour App Engine Standard Java 8
-3. Ajouter la configuration du Connector VPC dans app.yaml
-4. Dépendance maven
-5. Configuration Listener `AppServletContextListener`
-6. Endpoint pour tester `RedisController`
+## Accès Shell au pod
 
-## Mail
+1. `kubectl exec -it poc-gke-johann-7c44cb66fc-gzl6l -- /bin/ash`
 
-javax.mail compatible avec API de GCP uniquement pour Java 8
+## Cloud DNS
 
-Java 11 : Utilisation de API tierce comme SendGrid, Mailgun, or Mailjet. 
+Pour pouvoir utiliser des noms de domaine avec un service ou un équilibreur de requêtes HTTP, il faut configurer :
+ - une zone avec un enregistrement qui pointe vers l'adresse IP de notre service/ingress dans Cloud DNS
+ - puis mettre à jour les NS (Name Server) du registar de notre nom de domaine
 
-Pas réalisé cette partie.
+ Documentation : https://cloud.google.com/dns/docs/quickstart#update_your_domain_name_servers
 
-## Auth
+## Ingress NGINX - équilibreur de charge HTTP(S) 
 
-3 possiblités :
-* Firebase
-* Google Sign-In
-* OAuth 2.0 and OpenID Connect
+Pour les besoins du POC, nous allons déployer un 2e service.
 
-https://cloud.google.com/appengine/docs/standard/java11/authenticating-users
+**Attention** : le **rewrite-target** ne fonctionne pas avec le Ingress par défaut de GKE, utiliser au autre ingress, comme nginx.
 
-### Firebase 
+1. Création du NGINX Ingress Controller - suivre cette documentation https://cloud.google.com/community/tutorials/nginx-ingress-gke	
+2. Création du fichier de configuration d'un object Kubernetes de type Ingress `my-ingress.yaml`
+3. Attention : la route racine du/des PODs "/" doit retourner une 200, sinon le pod est considéré comme KO.
+4. Application du Ingress `kubectl apply -f my-ingress.yaml`
+5. Tester en récupérant l'adresse IP du service nginx-ingress-controller `kubectl get service nginx-ingress-controller`
 
-Firebase propose plein d'outils pour des développements Web, dont plein de modes d'authentification. 
-Ici, on va tester l'authentification par email/password tout simplement côté navigateur (JS). 
+**Résultats** :
+* http://external-ip-of-ingress-controller/ redirige bien vers le service 1
+* http://external-ip-of-ingress-controller/v2/ redirige bien vers le service 2
 
-1. Créer un compte et un projet Firebase https://console.firebase.google.com
-1. Tout se passe en JS dans le fichier `oauth.html`
+# En pratique avec Gitlab-CI
 
-Simple et rapide à mettre en place. 
-
-# Local
-
-`mvn spring-boot:run`
-
-ou
-
-`mvn appengine:devserver`
-
-## Postman
-
-Collection dans les sources du repo à la racine.
