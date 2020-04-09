@@ -2,21 +2,21 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: poc-gke-johann
+  name: poc-gke-johann-2
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: poc-gke-johann
+      app: poc-gke-johann-2
   template:
     metadata:
       labels:
-        app: poc-gke-johann
+        app: poc-gke-johann-2
     spec:
       containers:
-        - name: poc-gke-johann
+        - name: poc-gke-johann-2
           # Replace $GCLOUD_PROJECT with your project ID
-          image: gcr.io/poc-demo-johann-asia-south1/springboot-poc-gke-docker-image:latest
+          image: gcr.io/poc-demo-johann-asia-south1/springboot-poc-gke-docker-image:2.0
           # This app listens on port 8080 for web traffic by default.
           ports:
             - containerPort: 8080

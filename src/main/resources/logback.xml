@@ -8,7 +8,16 @@
         </encoder>
     </appender>
 
+    <appender name="SERVER_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>/logs/poc-gke.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%d [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
     <root level="info">
         <appender-ref ref="STDOUT" />
+        <appender-ref ref="SERVER_FILE" />
     </root>
 </configuration>
