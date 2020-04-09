@@ -21,7 +21,7 @@ build:
     - echo "$GCP_SERVICE_KEY" > gcloud-service-key.json # Google Cloud service accounts
     - gcloud auth activate-service-account --key-file gcloud-service-key.json
     - gcloud config set project $GCP_PROJECT_ID
-    - gcloud builds submit . --config=cloudbuild.yaml --substitutions _IMAGE_NAME=$CI_PROJECT_NAME,_VERSION=$(echo $CI_COMMIT_SHA | cut -c8-25)
+    - gcloud builds submit --tag gcr.io/$GCP_PROJECT_ID/$CI_PROJECT_NAME:$(echo $CI_COMMIT_SHA | cut -c8-25) .
 
 deploy_review:
   stage: deploy
