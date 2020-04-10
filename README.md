@@ -48,8 +48,8 @@ Les services fournissent un point d'accès unique à un ensemble de pods.
 
 1. Builder et pusher la nouvelle image Docker
 2. Puis 
-2.1 Soit mettre à jour le fichier `deployment.yaml` avec la nouvelle version,
-2.2 soit si la version est latest et le replica = 1, supprimer le pod => un nouveau se créera avec la dernière version
+* Soit mettre à jour le fichier `deployment.yaml` avec la nouvelle version,
+* soit si la version est latest et le replica = 1, supprimer le pod => un nouveau se créera avec la dernière version
 `kubectl get pods` ``
 
 ## Volume
@@ -86,5 +86,37 @@ Pour les besoins du POC, nous allons déployer un 2e service.
 * http://external-ip-of-ingress-controller/ redirige bien vers le service 1
 * http://external-ip-of-ingress-controller/v2/ redirige bien vers le service 2
 
+## Kubectl avec plusieurs cluster
+
+Possibilité d'avoir plusieurs confiurations de cluster. Voici quelques commandes utiles :
+Jouer avec les contexts
+* kubectl config get-contexts
+* kubectl config use-context gke_gitlab-project-273605_asia-south1-a_cluster-1
+* kubectl config set-context default --cluster=cluster-1 --user=cluster-admin
+Voir les secrets
+* kubectl describe secrets
+Configurer un nouveau cluster
+* kubectl config set-cluster cluster-1  --server="https://35.244.6.171" --insecure-skip-tls-verify=true
+Configurer un nouveau credential
+* kubectl config set-credentials cluster-admin --username="xxx" --password="xxx"
+* etc
+
 # En pratique avec Gitlab-CI
 
+## Pré-requis 
+ 
+Deployer une application GKE Gitlab à partir de GCP Marketplace :
+ * Suivre les étapes d'installation
+ *  Configurer les DNS pour router `gitlab.nomdedomaine.fr` vers l'IP de l'IngressController de Gitlab
+
+## Compte de service
+
+Dans `> IAM > Service account`, créer un compte pour gitlab avec les droits suivants :
+* Lecture sur toutes les ressources
+* Editor sur CLoud Build
+* Admin sur Storage
+
+//TODO
+
+
+https://docs.gitlab.com/ee/ci/variables/predefined_variables.html

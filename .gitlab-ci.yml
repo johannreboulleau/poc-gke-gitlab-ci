@@ -70,21 +70,6 @@ deploy_stage:
   only:
     - master
 
-deploy_stage:
-  stage: deploy
-  image: google/cloud-sdk
-  script:
-    - echo "Deploy to production server"
-    - config_kubernetes
-    - create_ssl_secret
-    - create_deployment_files
-    - apply_and_rollout
-  environment:
-    name: prod
-    url: https://$CI_ENVIRONMENT_SLUG.$CI_PROJECT_NAME.$MY_DOMAIN
-  only:
-    - tags
-
 # Custom Functions -------------------------------------------------------
 .custom_functions: &custom_functions |
   export VERSION=$(echo $CI_COMMIT_SHA | cut -c8-25)
@@ -115,13 +100,13 @@ deploy_stage:
 
   function create_deployment_files() {
     ## Deployment file substitutions
-    sed 's/_APP_NAME_/'"$CI_PROJECT_NAME"'/g; s/_VERSION_/'"$VERSION"'/g; s/_CI_ENVIRONMENT_SLUG_/'"$CI_ENVIRONMENT_SLUG"'/g; s/_PROJECT_NAME_/'"$GCP_PROJECT_ID"'/g; s/_REPLICAS_/'"$REPLICAS"'/g; s/_TRACK_/'"$TRACK"'/g;' kubernetes.tpl.deployment.yaml > deployment.yaml;
+    sed 's/_APP_NAME_/'"$CI_PROJECT_NAME"'/g; s/_VERSION_/'"$VERSION"'/g; s/_CI_ENVIRONMENT_SLUG_/'"$CI_ENVIRONMENT_SLUG"'/g; s/_PROJECT_NAME_/'"$GCP_PROJECT_ID"'/g; s/_REPLICAS_/'"$REPLICAS"'/g; s/_TRACK_/'"$TRACK"'/g;' gitlab-deployment.yaml > deployment.yaml;
 
     ## Ingress file substitutions
     if [[ "$USE_SSL" != "True" ]]; then
-      sed 's/_APP_NAME_/'"$CI_PROJECT_NAME"'/g; s/_CI_ENVIRONMENT_SLUG_/'"$CI_ENVIRONMENT_SLUG"'/g; s/_MY_DOMAIN_/'"$MY_DOMAIN"'/g;' kubernetes.tpl.ingress.yaml > ingress.yaml;
+      sed 's/_APP_NAME_/'"$CI_PROJECT_NAME"'/g; s/_CI_ENVIRONMENT_SLUG_/'"$CI_ENVIRONMENT_SLUG"'/g; s/_MY_DOMAIN_/'"$MY_DOMAIN"'/g;' gitlab-ingress.yaml > ingress.yaml;
     else
-      sed 's/_APP_NAME_/'"$CI_PROJECT_NAME"'/g; s/_CI_ENVIRONMENT_SLUG_/'"$CI_ENVIRONMENT_SLUG"'/g; s/_MY_DOMAIN_/'"$MY_DOMAIN"'/g;' kubernetes.tpl.ingress-ssl.yaml > ingress.yaml;
+      sed 's/_APP_NAME_/'"$CI_PROJECT_NAME"'/g; s/_CI_ENVIRONMENT_SLUG_/'"$CI_ENVIRONMENT_SLUG"'/g; s/_MY_DOMAIN_/'"$MY_DOMAIN"'/g;' gitlab-ingress-ssl.yaml > ingress.yaml;
     fi
 
     ## Service file substitutions

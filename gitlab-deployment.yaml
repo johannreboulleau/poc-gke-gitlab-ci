@@ -1,0 +1,33 @@
+# This file configures the hello-world app which serves public web traffic.
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: _APP_NAME_-_CI_ENVIRONMENT_SLUG_-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: _APP_NAME_-_CI_ENVIRONMENT_SLUG_
+  template:
+    metadata:
+      labels:
+        app: _APP_NAME_-_CI_ENVIRONMENT_SLUG_
+    spec:
+      containers:
+        - name: app
+          # Replace $GCLOUD_PROJECT with your project ID
+          image: gcr.io/_PROJECT_NAME_/_APP_NAME_:_VERSION_
+          # This app listens on port 8080 for web traffic by default.
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PORT
+              value: "8080"
+          volumeMounts:
+            - mountPath: /logs
+              name: volume-logs
+          #imagePullPolicy is omitted and either the image tag is :latest or it is omitted: Always is applied.
+          #cette propriete est important pour mettre à jour l image des containers
+      volumes:
+        - name: volume-logs
+          emptyDir: {}
