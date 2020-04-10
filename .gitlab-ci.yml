@@ -36,10 +36,6 @@ deploy_review:
     name: review/$CI_COMMIT_REF_NAME
     url: https://$CI_ENVIRONMENT_SLUG.$CI_PROJECT_NAME.$MY_DOMAIN
     on_stop: stop_review
-  only:
-    - branches
-  except:
-    - master
 
 stop_review:
   stage: deploy
@@ -49,27 +45,13 @@ stop_review:
   script:
     - echo "Remove review app = $CI_PROJECT_NAME - $CI_ENVIRONMENT_SLUG"
     - kubectl version
-    - kubectl delete ing -l app='$CI_PROJECT_NAME'-'$CI_ENVIRONMENT_SLUG'
-    - kubectl delete all -l app='$CI_PROJECT_NAME'-'$CI_ENVIRONMENT_SLUG'
+    - kubectl delete ing -l app=$CI_PROJECT_NAME'-'$CI_ENVIRONMENT_SLUG
+    - kubectl delete all -l app=$CI_PROJECT_NAME'-'$CI_ENVIRONMENT_SLUG
   when: manual
   environment:
     name: review/$CI_COMMIT_REF_NAME
     action: stop
 
-deploy_stage:
-  stage: deploy
-  image: google/cloud-sdk
-  script:
-    - echo "Deploy to staging server"
-    - config_kubernetes
-    - create_ssl_secret
-    - create_deployment_files
-    - apply_and_rollout
-  environment:
-    name: staging
-    url: https://$CI_ENVIRONMENT_SLUG.$CI_PROJECT_NAME.$MY_DOMAIN
-  only:
-    - master
 
 # Custom Functions -------------------------------------------------------
 .custom_functions: &custom_functions |
