@@ -152,3 +152,8 @@ Autre documentation utile :
 
 Résultat :
 
+Gitlab :
+![Pipeline gitlab](images/result-gitlab-ci.png)
+
+L'application déployé avec une URL propre :
+![Application](images/result-appli.png)
