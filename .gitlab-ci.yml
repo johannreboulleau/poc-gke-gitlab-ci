@@ -14,7 +14,7 @@ test:
 
 build:
   stage: build
-  image: google/cloud-sdk
+  image: google/cloud-sdk:slim
   services:
     - docker:dind
   script:
@@ -25,7 +25,7 @@ build:
 
 deploy_review:
   stage: deploy
-  image: google/cloud-sdk
+  image: google/cloud-sdk:slim
   script:
     - echo "Deploy a review app $CI_ENVIRONMENT_SLUG - $CI_COMMIT_REF_NAME"
     - config_kubernetes
@@ -39,12 +39,13 @@ deploy_review:
 
 stop_review:
   stage: deploy
-  image: google/cloud-sdk
+  image: google/cloud-sdk:slim
   variables:
     GIT_STRATEGY: none
   script:
     - echo "Remove review app = $CI_ENVIRONMENT_SLUG"
     - kubectl version
+    - config_kubernetes
     - kubectl delete ing -l app=$CI_ENVIRONMENT_SLUG
     - kubectl delete all -l app=$CI_ENVIRONMENT_SLUG
   when: manual
