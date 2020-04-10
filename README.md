@@ -150,7 +150,7 @@ Toutes les étapes ci-dessous se trouvent dans ce tutoriel.
 **Autre documentation utile :**
 * https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
 
-##Résultat :
+## Résultat :
 
 Gitlab :
 ![Pipeline gitlab](images/result-gitlab-ci.png)
