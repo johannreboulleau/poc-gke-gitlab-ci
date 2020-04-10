@@ -14,7 +14,7 @@ test:
 
 build:
   stage: build
-  image: google/cloud-sdk:slim
+  image: google/cloud-sdk
   services:
     - docker:dind
   script:
@@ -25,7 +25,7 @@ build:
 
 deploy_review:
   stage: deploy
-  image: google/cloud-sdk:slim
+  image: google/cloud-sdk
   script:
     - echo "Deploy a review app $CI_ENVIRONMENT_SLUG - $CI_COMMIT_REF_NAME"
     - config_kubernetes
@@ -39,7 +39,7 @@ deploy_review:
 
 stop_review:
   stage: deploy
-  image: google/cloud-sdk:slim
+  image: google/cloud-sdk
   variables:
     GIT_STRATEGY: none
   script:
