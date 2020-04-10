@@ -145,7 +145,7 @@ Toutes les étapes ci-dessous se trouvent dans ce tutoriel.
 5. Création des variables pour la CI/CD (cf tutoriel)
 6. Création des 3 fichiers suivants : `gitlab-deployment.yaml`, `gitlab-service.yaml` et `gitlab-ingress.yaml`
 7. Création de `gitlab-ci.yml` avec 3 jobs : build + deploy dans GKE + Remove All
-8. Dans Cloud DNS, ajouter l'entrée : le nom `*.nomdedomaine.fr` doit pointer vers l'IP du Controller de l'Ingress NGINX
+8. Dans Cloud DNS, ajouter l'entrée : le nom `*.nomdedomaine.fr` doit pointer vers l'IP du Controller de l'Ingress NGINX. C'est l'Ingress qui va se charger de router les sous-domaines.
 
 **Autre documentation utile :**
 * https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
