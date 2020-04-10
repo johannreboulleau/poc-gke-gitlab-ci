@@ -6,11 +6,15 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  template:
+    metadata:
+      labels:
+        app: _APP_NAME_-_CI_ENVIRONMENT_SLUG_
   rules:
     - host: _CI_ENVIRONMENT_SLUG_._APP_NAME_._MY_DOMAIN_
       http:
         paths:
           - path: /
             backend:
-              serviceName: _APP_NAME_-_CI_ENVIRONMENT_SLUG_-svc
+              serviceName: _APP_NAME_-_CI_ENVIRONMENT_SLUG_-service
               servicePort: 80
