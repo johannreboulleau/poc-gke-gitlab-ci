@@ -110,7 +110,7 @@ deploy_stage:
     fi
 
     ## Service file substitutions
-    sed 's/_APP_NAME_/'"$CI_PROJECT_NAME"'/g; s/_CI_ENVIRONMENT_SLUG_/'"$CI_ENVIRONMENT_SLUG"'/g;' kubernetes.tpl.service.yaml > service.yaml;
+    sed 's/_APP_NAME_/'"$CI_PROJECT_NAME"'/g; s/_CI_ENVIRONMENT_SLUG_/'"$CI_ENVIRONMENT_SLUG"'/g;' gitlab-service.yaml > service.yaml;
   }
 
   function apply_and_rollout() {
