@@ -43,6 +43,7 @@ deploy_review:
 
 stop_review:
   stage: deploy
+  image: google/cloud-sdk
   variables:
     GIT_STRATEGY: none
   script:
@@ -74,7 +75,7 @@ deploy_stage:
 .custom_functions: &custom_functions |
   export VERSION=$(echo $CI_COMMIT_SHA | cut -c8-25)
   export SECRET_NAME=tls-$CI_PROJECT_NAME-$CI_ENVIRONMENT_SLUG
-  export REPLICAS=3
+  export REPLICAS=1
   export TRACK=stable
 
   function config_kubernetes() {
