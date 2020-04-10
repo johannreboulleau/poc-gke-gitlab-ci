@@ -11,7 +11,7 @@ spec:
   template:
     metadata:
       labels:
-        app: _APP_NAME_-_CI_ENVIRONMENT_SLUG_
+        app: _CI_ENVIRONMENT_SLUG_
     spec:
       containers:
         - name: app

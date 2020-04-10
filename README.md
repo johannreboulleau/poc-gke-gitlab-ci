@@ -4,7 +4,9 @@ Ce projet est personnel et n'est pas destiné à une formation ou autres.
 
 Le but est d'explorer et monter en compétences sur Kubernetes et Google Kubernetes Engine (GKE).
 
-Documentation principale : https://cloud.google.com/kubernetes-engine/docs
+Documentation principale : 
+* https://cloud.google.com/kubernetes-engine/docs
+* https://kubernetes.io/docs/home/
 
 **Pré-requis**
 
@@ -114,18 +116,18 @@ Configurer un nouveau credential
 
 ## Objectifs 
 
-Le but ici est de mettre en pratique les concepts ci-dessus en mettant en place une CI/CD pour des développeur. 
+Le but est de mettre en pratique les concepts ci-dessus en mettant en place une CI/CD pour des développeur. 
 A chaque nouvelle branche pushée, la CI/CD doit :
  - build d'une image docker
  - push sur le Registry de GCP (gcr.io)
- - Déployer sur GCP (objet K8S de type Deployment + Service)
- - création d'une route unique (objet K8S de type Ingress)
+ - déployer sur GCP (objet K8S de type Deployment + Service)
+ - accéder à la version de l'application deployée via une route unique (objet K8S de type Ingress)
  
 Manuellement, le job proposera aussi de détruire l'environnement (Ingress, Service, Deployment, Pods). 
 
 J'ai suivi ce tutoriel https://medium.com/@davivc/how-to-set-up-gitlab-ci-cd-with-google-cloud-container-registry-and-kubernetes-fa88ab7b1295
 
-Toutes les étapes ci-dessous ne se trouvent dans ce tutoriel.
+Toutes les étapes ci-dessous se trouvent dans ce tutoriel.
 
 ## Pré-requis
  
@@ -139,10 +141,11 @@ Toutes les étapes ci-dessous ne se trouvent dans ce tutoriel.
 1. GCP : création/configuration du cluster pour accéder à l'API K8S de l'extérieur 
 2. GCP : création d'un compte de Service avec les rôles : Lecture sur tout + Editor de Cloud Build + Admin sur GCS (storage, registry)
 3. Gitlab : ajouter le cluster GCP
-4. Gitlab : installer les applications Helm Tiller, Ingress, GitlabRunner (Gitlab va installer pour un Ingress NGINX sur notre cluster)
-5. Création des 3 fichiers suivants : `gitlab-deployment.yaml`, `gitlab-service.yaml` et `gitlab-ingress.yaml`
-6. Création de `gitlab-ci.yml` : build + deploy dans GKE + Remove All
-4. Dans Cloud DNS, ajouter l'entrée : le nom `*.nomdedomaine.fr` doit pointer vers l'IP du Controller de l'Ingress NGINX
+4. Gitlab : installer les applications Helm Tiller, Ingress, GitlabRunner (Gitlab va installer un équilibreur de charge HTTP Ingress NGINX sur notre cluster)
+5. Création des variables pour la CI/CD (cf tutoriel)
+6. Création des 3 fichiers suivants : `gitlab-deployment.yaml`, `gitlab-service.yaml` et `gitlab-ingress.yaml`
+7. Création de `gitlab-ci.yml` avec 3 jobs : build + deploy dans GKE + Remove All
+8. Dans Cloud DNS, ajouter l'entrée : le nom `*.nomdedomaine.fr` doit pointer vers l'IP du Controller de l'Ingress NGINX
 
 Autre documentation utile :
 * https://docs.gitlab.com/ee/ci/variables/predefined_variables.html

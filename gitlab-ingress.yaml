@@ -6,7 +6,7 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/rewrite-target: /
   labels:
-    app: _APP_NAME_-_CI_ENVIRONMENT_SLUG_
+    app: _CI_ENVIRONMENT_SLUG_
 spec:
   rules:
     - host: _CI_ENVIRONMENT_SLUG_._APP_NAME_._MY_DOMAIN_
