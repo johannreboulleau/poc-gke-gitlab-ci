@@ -2,7 +2,7 @@
 
 Ce projet est personnel et n'est pas destiné à une formation ou autres.
 
-Le but est d'explorer et monter en compétence sur Kubernetes et Google Kubernetes Engine (GKE).
+Le but est d'explorer et monter en compétences sur Kubernetes et Google Kubernetes Engine (GKE).
 
 Documentation principale : https://cloud.google.com/kubernetes-engine/docs
 
@@ -13,9 +13,9 @@ Documentation principale : https://cloud.google.com/kubernetes-engine/docs
 * projet Spring Boot 2
 * un compte GCP avec un projet et la facturation activée
 
-**Info** : Spring Boot 2
+**Info** : nous pourrions utiliser un projet Java simple ou une autre techno.
 
-# Features
+# Features expérimentées
 
 ## Création d un cluster
 
@@ -36,38 +36,39 @@ Documentation principale : https://cloud.google.com/kubernetes-engine/docs
 
 Equivalent à `docker build .` + `docker push`
 
-## Création Deployment
+## Création d'un object K8S de Deployment
 
 1. Création du fichier de configuration d'un object Kubernetes de type Deployment `deployment.yaml`
 2. Application du déploiment dans GKE `kubectl apply -f deployment.yaml`
 3. Vérification `kubectl get deployments` , `kubectl get pods`
 
-## Déployer un Service
+## Création d'un object K8S de Service. 
 
 Les services fournissent un point d'accès unique à un ensemble de pods.
+Il expose un Deployment.
 
 1. Création du fichier de configuration d'un object Kubernetes de type Service `service.yaml`
 2. Application du service `kubectl apply -f service.yaml`
 3. Vérification `kubectl get services`
-4. Accéder à l'application `curl http://34.93.58.136/` 
+4. Accéder à l'application `curl http://ADRESSE_IP/` 
 
 ## Déployer une nouvelle version d'une image
 
 1. Builder et pusher la nouvelle image Docker
-2. Puis 
-* Soit mettre à jour le fichier `deployment.yaml` avec la nouvelle version,
-* soit si la version est latest et le replica = 1, supprimer le pod => un nouveau se créera avec la dernière version
-`kubectl get pods` ``
+2. Puis :
+    * soit mettre à jour le fichier `deployment.yaml` avec la nouvelle version
+    * soit si la version est latest et le replica = 1, supprimer le pod => un nouveau se créera avec la dernière version
+    `kubectl get pods` et `kubectl delete pods name`
 
 ## Volume
 
 1. La configuration se fait dans `deployment.yaml`
 2. Configuration `logback.xml` pour écrire dans un fichier de ce volume
-3. Vérifier le fichier de logs `kubectl exec -it poc-gke-johann-7c44cb66fc-gzl6l -- /bin/ash` puis `less /logs/poc-gke.log`
+3. Vérifier le fichier de logs `kubectl exec -it POD_NAME -- /bin/ash` puis `less /logs/poc-gke.log`
 
 ## Accès Shell au pod
 
-1. `kubectl exec -it poc-gke-johann-7c44cb66fc-gzl6l -- /bin/ash`
+1. `kubectl exec -it POD_NAME -- /bin/ash`
 
 ## Cloud DNS
 
@@ -81,7 +82,7 @@ Pour pouvoir utiliser des noms de domaine avec un service ou un équilibreur de 
 
 **Info :** Pour les besoins du POC, nous allons déployer un 2e service.
 
-**Attention** : le **rewrite-target** ne fonctionne pas avec le Ingress par défaut de GKE, c'est pour cela que j'utilise nginx.
+**Attention** : le **rewrite-target** ne fonctionne pas avec le Ingress par défaut de GKE, c'est pour cela que j'utilise Nginx.
 De plus pour le besoin d'une CI, il est préférable d'utiliser l'architecture de Ingress Nginx (cf doc https://cloud.google.com/community/tutorials/nginx-ingress-gke	).
 
 1. Création du NGINX Ingress Controller - suivre cette documentation https://cloud.google.com/community/tutorials/nginx-ingress-gke	
@@ -96,8 +97,8 @@ De plus pour le besoin d'une CI, il est préférable d'utiliser l'architecture d
 
 ## Kubectl avec plusieurs cluster
 
-Possibilité d'avoir plusieurs confiurations de cluster. Voici quelques commandes utiles :
-Jouer avec les contexts
+Possibilité d'avoir plusieurs configurations de cluster. Voici quelques commandes utiles :
+
 * kubectl config get-contexts
 * kubectl config use-context gke_gitlab-project-273605_asia-south1-a_cluster-1
 * kubectl config set-context default --cluster=cluster-1 --user=cluster-admin
@@ -113,7 +114,7 @@ Configurer un nouveau credential
 
 ## Objectifs 
 
-Le but ici est e mettre en place une CI/CD pour des développeur. 
+Le but ici est de mettre en pratique les concepts ci-dessus en mettant en place une CI/CD pour des développeur. 
 A chaque nouvelle branche pushée, la CI/CD doit :
  - build d'une image docker
  - push sur le Registry de GCP (gcr.io)
