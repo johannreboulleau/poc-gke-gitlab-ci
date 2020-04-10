@@ -147,13 +147,13 @@ Toutes les étapes ci-dessous se trouvent dans ce tutoriel.
 7. Création de `gitlab-ci.yml` avec 3 jobs : build + deploy dans GKE + Remove All
 8. Dans Cloud DNS, ajouter l'entrée : le nom `*.nomdedomaine.fr` doit pointer vers l'IP du Controller de l'Ingress NGINX
 
-Autre documentation utile :
+**Autre documentation utile :**
 * https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
 
-Résultat :
+##Résultat :
 
 Gitlab :
 ![Pipeline gitlab](images/result-gitlab-ci.png)
 
-L'application déployé avec une URL propre :
+L'application déployée avec une URL propre :
 ![Application](images/result-appli.png)
