@@ -7,7 +7,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: _APP_NAME_-_CI_ENVIRONMENT_SLUG_
+      app: _CI_ENVIRONMENT_SLUG_
   template:
     metadata:
       labels:
