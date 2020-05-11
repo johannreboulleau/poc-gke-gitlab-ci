@@ -104,12 +104,9 @@ Possibilité d'avoir plusieurs configurations de cluster. Voici quelques command
 * kubectl config get-contexts
 * kubectl config use-context gke_gitlab-project-273605_asia-south1-a_cluster-1
 * kubectl config set-context default --cluster=cluster-1 --user=cluster-admin
-Voir les secrets
-* kubectl describe secrets
-Configurer un nouveau cluster
-* kubectl config set-cluster cluster-1  --server="https://35.244.6.171" --insecure-skip-tls-verify=true
-Configurer un nouveau credential
-* kubectl config set-credentials cluster-admin --username="xxx" --password="xxx"
+* Voir les secrets : kubectl describe secrets
+* Configurer un nouveau cluster : kubectl config set-cluster cluster-1  --server="https://35.244.6.171" --insecure-skip-tls-verify=true
+* Configurer un nouveau credential : kubectl config set-credentials cluster-admin --username="xxx" --password="xxx"
 * etc
 
 # En pratique avec Gitlab-CI
