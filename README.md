@@ -72,6 +72,11 @@ Il expose un Deployment.
 
 1. `kubectl exec -it POD_NAME -- /bin/ash`
 
+## Describe POD (lifecycle)
+
+1. `kubectl describe pods pod-name-xxxxx`
+
+
 ## Cloud DNS
 
 Pour pouvoir utiliser des noms de domaine avec un service ou un équilibreur de requêtes HTTP (Ingress), il faut configurer :
