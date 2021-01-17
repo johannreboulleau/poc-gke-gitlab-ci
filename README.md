@@ -67,6 +67,7 @@ Il expose un Deployment.
 1. La configuration se fait dans `deployment.yaml`
 2. Configuration `logback.xml` pour écrire dans un fichier de ce volume
 3. Vérifier le fichier de logs `kubectl exec -it POD_NAME -- /bin/ash` puis `less /logs/poc-gke.log`
+ou `kubectl logs POD_NAME`
 
 ## Accès Shell au pod
 
@@ -74,7 +75,7 @@ Il expose un Deployment.
 
 ## Describe POD (lifecycle)
 
-1. `kubectl describe pods pod-name-xxxxx`
+1. `kubectl describe pods POD_NAME`
 
 
 ## Cloud DNS
